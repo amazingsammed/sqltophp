@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 from php_functions import Craft, CreateLoginFile
 from sql_to_php import convert_db_to_json 
 
@@ -8,6 +9,11 @@ try:
  command = sys.argv[1]
 except:
  command = 3 
+
+
+
+
+
 
 if command=='db':
   for file in os.listdir(os.curdir):
@@ -24,6 +30,7 @@ elif command =='json':
         output_folder = "json_to_php"
         Craft(file,output_folder)
         print("Saved to "+ output_folder)
-
+elif command == 3:
+   print('You need to add a command[db , json]')
 else :
    print('Invalid Command')        

@@ -1,5 +1,10 @@
+# Contributors
+  - AmazingSammed
+  - Mickey_Cyerkid
+
+
 # sqltophp
- This is a python script to convert sqlite to php CRUD which uses GET request.It is currently a work-in-progress. Main aim of this project is to help convert sql to php easily without learning to code php.
+ This is a python script to convert sqlite database to json and json to php CRUD which uses POST request.It is currently a work-in-progress. Main aim of this project is to help convert sql to php easily without learning to code php.
  
 ### Usage
   - execute index.py

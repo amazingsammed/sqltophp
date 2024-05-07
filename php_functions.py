@@ -1,7 +1,18 @@
+import json
 import os
-from json_fuctions import loadJson
 
 
+
+
+
+def loadJson(filename):
+    try:
+        file_contents = open(filename, "r").read()
+        data = json.loads(file_contents)
+        return data
+    except Exception as e:
+        print(e)
+        
 def CreateLoginFile():
     global loginphp
     filename = 'login.php'
