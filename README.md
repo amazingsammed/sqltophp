@@ -2,10 +2,11 @@
  This is a python script to convert sqlite to php CRUD which uses GET request.It is currently a work-in-progress. Main aim of this project is to help convert sql to php easily without learning to code php.
  
 ### Usage
-  - open index.py
-  - change sql filename
   - execute index.py
-  - wait for php to be generated
+  - pass in a command
+     - db or json
+  - db is to convert sqlite db to json
+  - json is to convert json to php
  
  ## Main Objective
  - Create all kinds of sql database
