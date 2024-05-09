@@ -100,7 +100,8 @@ def craftCreate(tablename, json_data):
            vcount += 1
 
     # prepared statement
-    process_code += ')  VALUES ('+values_parameters+')");'
+    process_code += ')  VALUES ('+values_parameters+')");\n'
+    process_code += "if ($stmt) {\n"
     php_code += process_code
 
     # Bind parameters
@@ -145,6 +146,7 @@ def craftUpdate(tablename, json_data):
             process_code += f'`{field}` = ?,'
             count += 1
     process_code += f'WHERE `id` = ? ");'
+    process_code += "if ($stmt) {\n"
 
 
     # prepared statement
@@ -168,17 +170,18 @@ def craftUpdate(tablename, json_data):
 
 def craftDelete(tablename, json_data):
     php_code = '\n\tcase "delete":\n'
-    len_fields = len(json_data.keys())
     php_code+= '\t\t$id = $_POST["id"];\n'
 
 
     # prepared statement
-    process_code = '\n\t\t$stmt = $con->prepare("UPDATE `'+tablename+'` SET `status` = 0 WHERE `id` = ?; '
+    process_code = '\n\t\t$stmt = $con->prepare("Delete `'+tablename+'` SET `status` = 0 WHERE `id` = ?"); '
+    
     bind_param = '\n\t\t$stmt->bind_param("i", $id);'
     #create form field parameters
     # for field in json_data.keys():
     #     code = '\t\t${0} = $_POST["{1}"];\n'.format(field, field);
     #     php_code+= code
+    process_code += "if ($stmt) {\n"
     php_code += process_code
     php_code += bind_param
 
@@ -262,9 +265,13 @@ create_sample = """// Execute the statement
             $result_data = array(
                 'result' => "success"
             );
+            echo json_encode($result_data);
 
             // Close the statement
             $stmt->close();
+             } else {
+            echo "Failed to prepare". mysqli_error($con);
+        }
             break;\n
 """
 
@@ -286,6 +293,9 @@ update_sample = """// Execute the statement
 
             // Encode the result data as JSON and echo it
             echo json_encode($result_data);
+            } else {
+            echo "Failed to prepare". mysqli_error($con);
+        }
 
             // End the switch statement
             break;\n
@@ -310,6 +320,9 @@ delete_sample = """
 
             // Close the statement
             $stmt->close();
+            } else {
+            echo "Failed to prepare". mysqli_error($con);
+        }
 
             // End the switch statement
             break;
